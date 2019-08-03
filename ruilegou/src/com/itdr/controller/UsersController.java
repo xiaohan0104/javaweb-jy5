@@ -25,8 +25,8 @@ doGet(request,response);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //处理乱码
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
+//        request.setCharacterEncoding("UTF-8");
+//        response.setContentType("text/html;charset=UTF-8");
         //获取请求路径信息
 //        String pathInfo = request.getPathInfo();
         String pathInfo = request.getRequestURI();
@@ -39,6 +39,9 @@ doGet(request,response);
                 break;
             case  "login":
                 rs = loginDo(request);
+                break;
+            case  "disableuser":
+                rs = disableuserDo(request);
                 break;
         }
 
@@ -73,6 +76,7 @@ doGet(request,response);
 return rs;
 
     }
+//用户登录请求
     private ResponseCode loginDo(HttpServletRequest request){
         //获取参数
 
@@ -87,5 +91,16 @@ return rs;
 
         return rs;
     }
+//禁用用户请求
+    private ResponseCode disableuserDo(HttpServletRequest request){
+        //获取参数
 
+        String uid = request.getParameter("uid");
+        ResponseCode rs = uc.selectOne(uid);
+
+
+        //调用业务层处理业务
+
+        return rs;
+    }
 }
