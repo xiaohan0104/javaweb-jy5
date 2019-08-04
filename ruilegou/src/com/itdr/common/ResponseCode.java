@@ -1,5 +1,7 @@
 package com.itdr.common;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class ResponseCode<T> {
     private Integer status;
     private T data;
@@ -37,6 +39,7 @@ public class ResponseCode<T> {
                 ", mag='" + mag + '\'' +
                 '}';
     }
+
     //成功的时候只要返回状态码和成功获取的数据就可以了
     //失败的时候只要返回状态码和失败的信息就可以了
 }

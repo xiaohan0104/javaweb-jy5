@@ -16,7 +16,7 @@ public class UserDao {
     public List<Users> selectAll(String pageNum, String pageSize) {
 //        ComboPooledDataSource co = PoolUtil.getCom();
         QueryRunner qr = new QueryRunner(PoolUtil.getCom());
-        String sql = "select * from users";
+        String sql = "select * from users ";
         List<Users> li = null;
         try {
             li = qr.query(sql, new BeanListHandler<Users>(Users.class));

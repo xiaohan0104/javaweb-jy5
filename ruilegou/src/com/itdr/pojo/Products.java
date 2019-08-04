@@ -8,7 +8,7 @@ public class Products {
     String name ;
     String subtitle;
     String mainlmage;
-    String status;
+    Integer status;
     BigDecimal price;
 
     public Integer getId() {
@@ -51,11 +51,11 @@ public class Products {
         this.mainlmage = mainlmage;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
