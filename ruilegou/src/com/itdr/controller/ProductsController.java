@@ -30,6 +30,8 @@ public class ProductsController extends HttpServlet {
         switch (path){
             case  "list":
                 rs = listDo (request);
+            case "putaway":
+                rs = putawayDo(request);
         }
         //返回响应数据
         response.getWriter().write(rs.toString());
@@ -61,7 +63,7 @@ public class ProductsController extends HttpServlet {
         //获取pid和要修改的状态
         String pid = request.getParameter("pid");
         String status = request.getParameter("status");
-        ResponseCode rs = ps.selectOne(pid,status);
+        ResponseCode rs = ps. putawayOne(pid,status);
         return rs;
     }
 }

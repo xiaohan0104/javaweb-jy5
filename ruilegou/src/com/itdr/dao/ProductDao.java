@@ -24,29 +24,30 @@ public class ProductDao {
         return li;
     }
 //货品名商家情况得到一个商品
-    public Products selectone(Integer pid ,Integer status) {
+    public Products  putawayone(Integer pid ) {
         QueryRunner qr = new QueryRunner(PoolUtil.getCom());
-        String sql = "select * from pruduct where id = ? and status = ?";
+        String sql = "select * from products where id = ? ";
          Products p = null;
         try {
-            p = qr.query(sql,new BeanHandler<Products>(Products.class),pid,status);
+            p = qr.query(sql,new BeanHandler<Products>(Products.class),pid);
         } catch (Exception e) {
             e.printStackTrace();
         }
 return p;
     }
 
-    public int updateByStatusi(Integer statusi) {
+    public int updateByStatusi(Integer pid, Integer statusi) {
         QueryRunner qr = new QueryRunner(PoolUtil.getCom());
         String sql = null;
         if (statusi==0){
-             sql = "update pruduct set status = 0";
-        }if (statusi==1){
-             sql = "update pruduct set status = 1";
+             sql = "update products set status = 0 where id = ?";
+        }
+        if (statusi==1){
+             sql = "update products set status = 1 where id = ?";
         }
         int row =0;
         try {
-            row = qr.update(sql,statusi);
+            row = qr.update(sql,pid);
         } catch (SQLException e) {
             e.printStackTrace();
         }

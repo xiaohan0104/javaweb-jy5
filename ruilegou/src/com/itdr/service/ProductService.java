@@ -26,7 +26,7 @@ public class ProductService {
         return rs;
     }
 
-    public ResponseCode selectOne(String pid, String status) {
+    public ResponseCode  putawayOne(String pid, String status) {
         ResponseCode rs = new ResponseCode();
         if (pid == null || pid.equals("") || status == null || status.equals("")) {
             rs.setStatus(Const.USER_PARAMETER_CODE);
@@ -42,47 +42,28 @@ public class ProductService {
         } catch (Exception e) {
             rs.setStatus(105);
             rs.setMag("非法参数");
-
+            return rs;
         }
-        Products p = pd.selectone(pidi, statusi);
+        Products p = pd. putawayone(pidi);
         //判断用户存在
         if (p == null) {
             rs.setStatus(Const.USER_NO_CODE);
             rs.setData(Const.USER_NO_MSG);
+            return rs;
         }
-        if (statusi == 0) {
-            if (p.getStatus() == 0) {
-                rs.setStatus(Const.USER_ISNOPUTAWAY_CODE);
-                rs.setData(Const.USER_ISNOPUTAWAY_MSG);
-            } else {
-                int row = pd.updateByStatusi(statusi);
-                if (row <= 0) {
-                    rs.setStatus(106);
-                    rs.setMag("商品下架失败");
 
-                }
-                rs.setStatus(0);
-                rs.setData(row);
-
-            }
+        int row = pd.updateByStatusi(pidi,statusi);
+        if (row <= 0) {
+            rs.setStatus(106);
+            rs.setMag("操作失败");
+            return rs;
         }
-        if (statusi == 1) {
-            if (p.getStatus() == 1) {
-                rs.setStatus(Const.USER_ISPUTAWAY_CODE);
-                rs.setData(Const.USER_ISPUTAWAY_MSG);
-
-            } else {
-                int row = pd.updateByStatusi(statusi);
-                if (row <= 0) {
-                    rs.setStatus(106);
-                    rs.setMag("商品上架失败");
-                }
-                rs.setStatus(0);
-                rs.setData(row);
-
-            }
-
-        }
+        rs.setStatus(0);
+        rs.setData(row);
         return rs;
     }
+
 }
+
+
+
