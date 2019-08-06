@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(value = "/manage/user/*")
 public class UsersController extends HttpServlet {
@@ -35,23 +34,23 @@ doGet(request,response);
         //判断是什么请求
         switch (path){
             case  "list":
-                rs = listDo(request);
+               listDo(request,response);
                 break;
             case  "login":
-                rs = loginDo(request);
+                loginDo(request,response);
                 break;
             case  "disableuser":
-                rs = disableuserDo(request);
+                disableuserDo(request);
                 break;
         }
 
 
 
          //返回响应数据
-            response.getWriter().write(rs.toString());
+//            response.getWriter().write(rs.toString());
     }
     //获取所有用户列表的请求
-    private ResponseCode listDo(HttpServletRequest request){
+    private void listDo(HttpServletRequest request,HttpServletResponse response){
         //获取参数
         ResponseCode rs = new ResponseCode();
 
@@ -60,12 +59,12 @@ doGet(request,response);
         if (user == null){
             rs.setStatus(3);
             rs.setData("请登录后操作");
-            return rs;
+//            return rs;
         }
         if (user.getType()!= 1){
             rs.setStatus(3);
             rs.setData("没有操作权限");
-            return rs;
+//            return rs;
         }
 
         String pageSize = request.getParameter("paseSize");
@@ -73,11 +72,20 @@ doGet(request,response);
 
       rs = uc.selectAll(pageNum,pageSize);
 
-return rs;
+      request.setAttribute("uli",rs);
+        try {
+            request.getRequestDispatcher("/WEB-INF/userlist.jsp").forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//return rs;
 
     }
 //用户登录请求
-    private ResponseCode loginDo(HttpServletRequest request){
+    private void loginDo(HttpServletRequest request,HttpServletResponse response){
         //获取参数
 
         String username = request.getParameter("username");
@@ -89,7 +97,14 @@ return rs;
 
         //调用业务层处理业务
 
-        return rs;
+//        return rs;
+        try {
+            request.getRequestDispatcher("/WEB-INF/Home.jsp").forward(request,response);
+        } catch (ServletException e) {
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 //禁用用户请求
     private ResponseCode disableuserDo(HttpServletRequest request){

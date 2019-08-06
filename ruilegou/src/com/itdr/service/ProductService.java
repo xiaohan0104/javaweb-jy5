@@ -45,7 +45,7 @@ public class ProductService {
             return rs;
         }
         Products p = pd. putawayone(pidi);
-        //判断用户存在
+        //判断商品存在
         if (p == null) {
             rs.setStatus(Const.USER_NO_CODE);
             rs.setData(Const.USER_NO_MSG);

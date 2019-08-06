@@ -2,7 +2,7 @@ package com.itdr.pojo;
 
 public class Users {
     private Integer id;
-    private String rname;
+    private String uname;
     private String psd;
     private String tel;
     private Integer type=0;
@@ -16,12 +16,12 @@ public class Users {
         this.id = id;
     }
 
-    public String getRname() {
-        return rname;
+    public String getUname() {
+        return uname;
     }
 
-    public void setRname(String rname) {
-        this.rname = rname;
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
     public String getPsd() {
@@ -60,7 +60,7 @@ public class Users {
     public String toString() {
         return "Users{" +
                 "id=" + id +
-                ", rname='" + rname + '\'' +
+                ", uname='" + uname + '\'' +
                 ", psd='" + psd + '\'' +
                 ", tel='" + tel + '\'' +
                 ", type=" + type +
