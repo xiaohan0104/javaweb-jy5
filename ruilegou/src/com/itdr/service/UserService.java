@@ -19,7 +19,6 @@ public class UserService {
         }
 
         List<Users> li = ud.selectAll(pageNum, pageSize);
-        //如果为空
         ResponseCode rs = new ResponseCode();
         rs.setStatus(0);
         rs.setData(li);

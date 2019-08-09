@@ -20,7 +20,10 @@
         <a href="/manage/user/list.do">用户列表</a>
     </li>
     <li>
-        <a href="/manage/product/list.do">商品列表</a>
+    <a href="/manage/product/list.do">商品列表</a>
+</li>
+    <li>
+        <a href="/manage/order/list.do">订单列表</a>
     </li>
 </ul>
 </body>

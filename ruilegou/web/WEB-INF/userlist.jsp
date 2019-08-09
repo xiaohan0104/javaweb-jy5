@@ -12,8 +12,6 @@
     <title>用户列表</title>
 </head>
 <body>
-${uli}
-
 <table>
     <tr>
         <th>ID</th>

@@ -12,9 +12,7 @@
     <title>登录</title>
 </head>
 <body>
-
 <div id="H">
-
     <div id="H_1">
         <h>睿乐购后台管理系统</h>
         <form action="/manage/user/login.do" method="post">
@@ -24,7 +22,5 @@
         </form>
     </div>
 </div>
-
-
 </body>
 </html>

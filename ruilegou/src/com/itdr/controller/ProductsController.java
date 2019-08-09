@@ -29,15 +29,15 @@ public class ProductsController extends HttpServlet {
         //判断请求
         switch (path){
             case  "list":
-                rs = listDo (request);
+                listDo (request,response);
             case "putaway":
-                rs = putawayDo(request);
+                 putawayDo(request);
         }
         //返回响应数据
-        response.getWriter().write(rs.toString());
+//        response.getWriter().write(rs.toString());
     }
 
-    private ResponseCode listDo (HttpServletRequest request){
+    private void listDo (HttpServletRequest request,HttpServletResponse response){
         //创建统一返回值对象
         ResponseCode rs = new ResponseCode();
         //获取session登录状态
@@ -48,14 +48,21 @@ public class ProductsController extends HttpServlet {
         if( user == null){
             rs.setStatus(3);
             rs.setData("请登录后操作");
-            return rs;
         }
         String pageSize = request.getParameter("paseSize");
         String pageNum = request.getParameter("pageNum");
 
         rs = ps.selectAll(pageNum,pageSize);
-        return rs;
 
+        request.setAttribute("pli",rs);
+
+        try {
+            request.getRequestDispatcher("/WEB-INF/productlist.jsp").forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
     //商品上架或者下架

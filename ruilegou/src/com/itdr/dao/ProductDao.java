@@ -14,40 +14,41 @@ public class ProductDao {
     public List<Products> selectAll(String pageNum, String pageSize) {
         //调用连接池方法
         QueryRunner qr = new QueryRunner(PoolUtil.getCom());
-        String sql = "select name,price from products";
+        String sql = "select * from products";
         List<Products> li = null;
         try {
-            li=qr.query(sql,new BeanListHandler<Products>(Products.class));
+            li = qr.query(sql, new BeanListHandler<Products>(Products.class));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return li;
     }
-//货品名商家情况得到一个商品
-    public Products  putawayone(Integer pid ) {
+
+    //货品名商家情况得到一个商品
+    public Products putawayone(Integer pid) {
         QueryRunner qr = new QueryRunner(PoolUtil.getCom());
         String sql = "select * from products where id = ? ";
-         Products p = null;
+        Products p = null;
         try {
-            p = qr.query(sql,new BeanHandler<Products>(Products.class),pid);
+            p = qr.query(sql, new BeanHandler<Products>(Products.class), pid);
         } catch (Exception e) {
             e.printStackTrace();
         }
-return p;
+        return p;
     }
 
     public int updateByStatusi(Integer pid, Integer statusi) {
         QueryRunner qr = new QueryRunner(PoolUtil.getCom());
         String sql = null;
-        if (statusi==0){
-             sql = "update products set status = 0 where id = ?";
+        if (statusi == 0) {
+            sql = "update products set status = 0 where id = ?";
         }
-        if (statusi==1){
-             sql = "update products set status = 1 where id = ?";
+        if (statusi == 1) {
+            sql = "update products set status = 1 where id = ?";
         }
-        int row =0;
+        int row = 0;
         try {
-            row = qr.update(sql,pid);
+            row = qr.update(sql, pid);
         } catch (SQLException e) {
             e.printStackTrace();
         }

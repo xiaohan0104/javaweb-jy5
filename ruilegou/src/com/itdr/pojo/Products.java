@@ -75,7 +75,7 @@ public class Products {
                 ", name='" + name + '\'' +
                 ", subtitle='" + subtitle + '\'' +
                 ", mainlmage='" + mainlmage + '\'' +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 ", price=" + price +
                 '}';
     }
