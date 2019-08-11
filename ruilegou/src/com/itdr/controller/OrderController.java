@@ -2,6 +2,7 @@ package com.itdr.controller;
 
 import com.itdr.common.ResponseCode;
 import com.itdr.service.OrderService;
+import com.itdr.utils.JsonUtils;
 import com.itdr.utils.PathUtil1;
 
 import javax.servlet.ServletException;
@@ -28,15 +29,19 @@ public class OrderController extends HttpServlet {
         //判断请求
         switch (path){
             case "list":
-                listDo(request,response);
+                rs =listDo(request,response);
             break;
             case "xq":
                 xqDo(request,response);
                 break;
         }
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(JsonUtils.obj2String(rs));
     }
 
-    private void listDo(HttpServletRequest request, HttpServletResponse response) {
+
+
+    private ResponseCode listDo(HttpServletRequest request, HttpServletResponse response) {
         //创建统一返回对象和参数
         ResponseCode rs = new ResponseCode();
 
@@ -44,39 +49,20 @@ public class OrderController extends HttpServlet {
         String pageNum = request.getParameter("pageNum");
         //调用业务层查询全部方法
         rs = os.selectAll(pageNum,pageSize);
+        return rs;
 
-        //存到request领域
-        request.setAttribute("oli",rs);
 
-        //转发请求到网址
-        try {
-            request.getRequestDispatcher("/WEB-INF/orderlist.jsp").forward(request,response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
-    private void xqDo(HttpServletRequest request, HttpServletResponse response) {
+    private ResponseCode xqDo(HttpServletRequest request, HttpServletResponse response) {
         //创建统一返回对象和参数
         ResponseCode rs = new ResponseCode();
 
         String oid = request.getParameter("oid");
         //调用业务层查询一个商品方法
         rs = os.selectOne(oid);
+        return rs;
 
-        //存到request领域
-        request.setAttribute("ooo",rs);
-
-        //转发请求到网址
-        try {
-            request.getRequestDispatcher("/WEB-INF/orderone.jsp").forward(request,response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 }

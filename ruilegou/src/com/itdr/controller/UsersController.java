@@ -3,6 +3,7 @@ package com.itdr.controller;
 import com.itdr.common.ResponseCode;
 import com.itdr.pojo.Users;
 import com.itdr.service.UserService;
+import com.itdr.utils.JsonUtils;
 import com.itdr.utils.PathUtil1;
 import com.sun.javafx.scene.shape.PathUtils;
 
@@ -34,23 +35,27 @@ doGet(request,response);
         //判断是什么请求
         switch (path){
             case  "list":
-               listDo(request,response);
+               rs = listDo(request,response);
                 break;
             case  "login":
-                loginDo(request,response);
+                rs = loginDo(request,response);
                 break;
             case  "disableuser":
-                disableuserDo(request);
+                rs = disableuserDo(request);
+                break;
+            case "selectone":
+                rs = selectOne1do(request);
                 break;
         }
 
 
 
          //返回响应数据
-//            response.getWriter().write(rs.toString());
+            response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(JsonUtils.obj2String(rs));
     }
     //获取所有用户列表的请求
-    private void listDo(HttpServletRequest request,HttpServletResponse response){
+    private ResponseCode listDo(HttpServletRequest request,HttpServletResponse response){
         //获取参数
         ResponseCode rs = new ResponseCode();
 
@@ -72,20 +77,13 @@ doGet(request,response);
 
       rs = uc.selectAll(pageNum,pageSize);
 
-      request.setAttribute("uli",rs);
-        try {
-            request.getRequestDispatcher("/WEB-INF/userlist.jsp").forward(request,response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-//return rs;
+
+return rs;
 
     }
 //用户登录请求
-    private void loginDo(HttpServletRequest request,HttpServletResponse response){
+    private ResponseCode loginDo(HttpServletRequest request,HttpServletResponse response){
         //获取参数
 
         String username = request.getParameter("username");
@@ -97,14 +95,8 @@ doGet(request,response);
 
         //调用业务层处理业务
 
-//        return rs;
-        try {
-            request.getRequestDispatcher("/WEB-INF/Home.jsp").forward(request,response);
-        } catch (ServletException e) {
+        return rs;
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 //禁用用户请求
     private ResponseCode disableuserDo(HttpServletRequest request){
@@ -116,6 +108,12 @@ doGet(request,response);
 
         //调用业务层处理业务
 
+        return rs;
+    }
+    private ResponseCode selectOne1do (HttpServletRequest request){
+        ResponseCode rs = new ResponseCode();
+        String name = request.getParameter("name");
+         rs = uc.selectOne1(name);
         return rs;
     }
 }

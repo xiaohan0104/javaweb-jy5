@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Orders {
     private String orderNo;
+    private String name;
     private BigDecimal payment;
     private  Integer paymentType;
     private String paymentTypeDesc;
@@ -16,6 +17,14 @@ public class Orders {
     private Date endTime;
     private Date closeTime;
     private Date createTime;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getOrderNo() {
         return orderNo;
@@ -117,6 +126,7 @@ public class Orders {
     public String toString() {
         return "Orders{" +
                 "orderNo='" + orderNo + '\'' +
+                ", name='" + name + '\'' +
                 ", payment=" + payment +
                 ", paymentType=" + paymentType +
                 ", paymentTypeDesc='" + paymentTypeDesc + '\'' +

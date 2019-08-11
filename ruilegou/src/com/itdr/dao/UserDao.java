@@ -67,4 +67,16 @@ public class UserDao {
 
         return row;
     }
+    public Users selectOne1(String name) {
+        QueryRunner qr = new QueryRunner(PoolUtil.getCom());
+        String sql = "select * from users where uname = ?";
+        Users u = null;
+        try {
+            u = qr.query(sql, new BeanHandler<Users>(Users.class), name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return u;
+    }
 }

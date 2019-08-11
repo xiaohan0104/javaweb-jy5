@@ -25,7 +25,7 @@ public class OrderService {
         rs.setData(li);
         return rs;
     }
-
+//查询一个
     public ResponseCode selectOne(String oid) {
         ResponseCode rs = new ResponseCode();
         OrderItemVoLists o = od.selectOne(oid);

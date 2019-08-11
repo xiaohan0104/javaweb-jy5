@@ -104,4 +104,26 @@ public class UserService {
 
         return rs;
     }
+
+    public ResponseCode selectOne1(String name) {
+        ResponseCode rs = new ResponseCode();
+        if (name == null||name.equals("")){
+            rs.setStatus(Const.USER_PARAMETER_CODE);
+            rs.setMag(Const.USER_PARAMETER_MSG);
+            return rs;
+        }
+//        Integer uidi = null;
+//        try{
+//            uidi = Integer.parseInt(uid);
+//        }catch (Exception e){
+//            rs.setStatus(105);
+//            rs.setMag("非法参数");
+//            return rs;
+//        }
+        Users u = ud.selectOne1(name);
+        rs.setStatus(0);
+        rs.setData(u);
+
+        return rs;
+    }
 }

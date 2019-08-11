@@ -26,19 +26,18 @@ public class ProductService {
         return rs;
     }
 
-    public ResponseCode  putawayOne(String pid, String status) {
+
+    public ResponseCode  putawayOne(String pid) {
         ResponseCode rs = new ResponseCode();
-        if (pid == null || pid.equals("") || status == null || status.equals("")) {
+        if (pid == null || pid.equals("") ) {
             rs.setStatus(Const.USER_PARAMETER_CODE);
             rs.setMag(Const.USER_PARAMETER_MSG);
             return rs;
         }
         //转换字符串
         Integer pidi = null;
-        Integer statusi = null;
         try {
             pidi = Integer.parseInt(pid);
-            statusi = Integer.parseInt(status);
         } catch (Exception e) {
             rs.setStatus(105);
             rs.setMag("非法参数");
@@ -52,17 +51,67 @@ public class ProductService {
             return rs;
         }
 
-        int row = pd.updateByStatusi(pidi,statusi);
+        int row = pd.updateByStatusi(pidi);
         if (row <= 0) {
             rs.setStatus(106);
             rs.setMag("操作失败");
             return rs;
         }
         rs.setStatus(0);
-        rs.setData(row);
+        rs.setData("操作成功");
+        return rs;
+    }
+    public ResponseCode  putawayOne2(String pid) {
+        ResponseCode rs = new ResponseCode();
+        if (pid == null || pid.equals("") ) {
+            rs.setStatus(Const.USER_PARAMETER_CODE);
+            rs.setMag(Const.USER_PARAMETER_MSG);
+            return rs;
+        }
+        //转换字符串
+        Integer pidi = null;
+        try {
+            pidi = Integer.parseInt(pid);
+        } catch (Exception e) {
+            rs.setStatus(105);
+            rs.setMag("非法参数");
+            return rs;
+        }
+        Products p = pd. putawayone(pidi);
+        //判断商品存在
+        if (p == null) {
+            rs.setStatus(Const.USER_NO_CODE);
+            rs.setData(Const.USER_NO_MSG);
+            return rs;
+        }
+
+        int row = pd.updateByStatusii(pidi);
+        if (row <= 0) {
+            rs.setStatus(106);
+            rs.setMag("操作失败");
+            return rs;
+        }
+        rs.setStatus(0);
+        rs.setData("操作成功");
         return rs;
     }
 
+    public ResponseCode selectOneDO(String name) {
+        ResponseCode rs = new ResponseCode();
+        //转换字符串
+//        Integer pidi = null;
+//        try {
+//            pidi = Integer.parseInt(pid);
+//        } catch (Exception e) {
+//            rs.setStatus(105);
+//            rs.setMag("非法参数");
+//            return rs;
+//        }
+        Products li = pd.selectOne(name);
+        rs.setStatus(0);
+        rs.setData(li);
+        return rs;
+    }
 }
 
 

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品查询</title>
+    <link rel="stylesheet" href="css/gg.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/pnot_null.css">
+</head>
+<body>
+<div id="zd">
+    <div id="left">
+        <div id="wz">
+            睿乐购后台管理
+        </div>
+
+        <!--左边导航栏-->
+        <div class="left_d">用户模块         ▽</div>
+        <ul id="ysnot_null">
+            <li><a href="userlist.html">用户列表</a></li>
+            <li><a href="userj.html">用户禁用</a></li>
+            <li><a href="yselecto.html">用户查询</a></li>
+        </ul>
+        <div class="left_d">商品模块         ▽</div>
+        <ul>
+            <li><a href="productlist.html">商品列表</a></li>
+            <li><a href="pguanli.html">商品管理</a></li>
+            <li><a href="pchaxun.html">商品查询</a></li>
+            <li><a href="pshanfjia.html">商品上架</a></li>
+            <li><a href="pxiajia.html">商品下架</a></li>
+        </ul>
+        <div class="left_d">订单模块         ▽</div>
+        <ul>
+            <li><a href="olist.html">订单列表</a></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="left_d">分类模块         ▽</div>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    <div id="right">
+
+        <!--右上搜索栏-->
+        <div id="right_t">
+            <div id="rt_a">
+                <input type="text" placeholder="搜索" name="name" id="so">
+                <input type="button" value="确定" id="btn">
+
+            </div>
+            <div id="nr">
+
+            </div>
+        </div>
+        <!--右下展示位-->
+        <div id="right_b">
+            <table id="tab">
+                <tr>
+                    <td width="150px">商品Id</td>
+                    <td width="150px">商品名称</td>
+                    <td width="150px">商品价格</td>
+                    <td width="150px">商品状态</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+    $(".left_d").click(
+        function () {
+            $(this).next().slideToggle();
+        }
+    )
+
+    $("#btn").click(
+        function () {
+            var so = $("#so").val()
+
+
+            $.get(
+                "/manage/product/selectOne.do",
+                {name: so},
+                function (dt) {
+                    if (dt.status !== 0) {
+                        $("#nr").empty();
+                        $("#nr").append("<spen>输入有误</spen>");
+                    } else {
+                        var s = "<tr><td>" +
+                            dt.data.id + "</td><td>" +
+                            dt.data.name + "</td><td>" +
+                            dt.data.peice + "</td><td>" +
+                            dt.data.status+ "</td></tr>"
+                        $("#tab").append(s)
+                    }
+                },"json"
+            )
+        }
+    )
+</script>
+</html>

@@ -4,6 +4,7 @@ import com.itdr.common.ResponseCode;
 import com.itdr.pojo.Users;
 
 import com.itdr.service.ProductService;
+import com.itdr.utils.JsonUtils;
 import com.itdr.utils.PathUtil1;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,15 +30,23 @@ public class ProductsController extends HttpServlet {
         //判断请求
         switch (path){
             case  "list":
-                listDo (request,response);
+                rs = listDo (request);
+                break;
             case "putaway":
-                 putawayDo(request);
+                 rs =putawayDo(request);
+                 break;
+            case "selectOne":
+                rs = selectOneDO(request);
+                break;
+            case "putawayi":
+                rs = putawayDo2(request);
+                break;
         }
-        //返回响应数据
-//        response.getWriter().write(rs.toString());
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(JsonUtils.obj2String(rs));
     }
 
-    private void listDo (HttpServletRequest request,HttpServletResponse response){
+    private ResponseCode listDo (HttpServletRequest request){
         //创建统一返回值对象
         ResponseCode rs = new ResponseCode();
         //获取session登录状态
@@ -54,23 +63,29 @@ public class ProductsController extends HttpServlet {
 
         rs = ps.selectAll(pageNum,pageSize);
 
-        request.setAttribute("pli",rs);
+return rs;
 
-        try {
-            request.getRequestDispatcher("/WEB-INF/productlist.jsp").forward(request,response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
     }
     //商品上架或者下架
     private ResponseCode putawayDo(HttpServletRequest request){
         //获取pid和要修改的状态
         String pid = request.getParameter("pid");
-        String status = request.getParameter("status");
-        ResponseCode rs = ps. putawayOne(pid,status);
+        ResponseCode rs = ps. putawayOne(pid);
         return rs;
     }
+    private ResponseCode putawayDo2(HttpServletRequest request){
+        //获取pid和要修改的状态
+        String pid = request.getParameter("pid");
+        ResponseCode rs = ps. putawayOne2(pid);
+        return rs;
+    }
+    private ResponseCode selectOneDO(HttpServletRequest request){
+        //获取pid和要修改的状态
+        String name = request.getParameter("name");
+        ResponseCode rs = ps. selectOneDO(name);
+        return rs;
+    }
+
 }

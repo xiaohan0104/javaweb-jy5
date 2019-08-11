@@ -1,0 +1,90 @@
+#zd{
+
+}
+
+#left{
+    height: 750px;
+    width: 15%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-around;*/
+    align-items: center;
+    background-color: darkgrey;
+    position: fixed;
+
+}
+.left_d{
+    height: 30px;
+    width: 90%;
+    background-color: gainsboro;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: darkkhaki 1px solid;
+
+}
+.left_d + ul{
+    font-size:15px;
+    background-color:  darkgrey;
+    width: 90%;
+    display: none;
+    text-align:center
+}
+
+.left_d:hover{
+    border-left: 6px blueviolet solid;
+}
+
+#right{
+    border: 1px black solid;
+    height: 1000px;
+    /*margin-top: 50px;*/
+    /*float: left;*/
+    width: 84%;
+    margin-left: 15%;
+}
+#right_t{
+    background-color: #888888;
+    height: 50px;
+    position: fixed;
+    width: 100%;
+    /*display: flex;justify-content: center;*/
+    /*justify-items: center;*/
+
+}
+#right_b{
+    background-color: lightgray;
+    /*position: fixed;*/
+    width: 100%;
+    height: 950px;
+    /*position: absolute;*/
+    /*border: 1px black solid;*/
+    /*top: 200px;*/
+    margin-top: 50px;
+
+}
+#rt_a{
+height: 22px;
+    float: left;
+}
+#nr{
+    height: 70%;
+    float: left;
+    display: flex;justify-content: center;
+    justify-items: center;
+}
+#rt_b{
+    height: 100%;
+    float: right;
+}
+#rt_a div,#rt_b div{
+     width: 30px;
+    height: 30px;
+    background-color: #888888;
+}
+#wz{
+    margin: 5px;
+}

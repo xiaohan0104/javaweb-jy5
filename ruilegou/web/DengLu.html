@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/gg.css">
+    <link rel="stylesheet" href="css/DengLu.css">
+</head>
+<body>
+<div id="bg">
+    <h1 id="wz">后台管理系统</h1>
+    <div id="bg_1">
+        <img id="tp" src="imgs/denglubeijing/denglubijing.png"/>
+        <div id="bg_2">
+            <form action="/manage/user/login.do" id="continue" method="post">
+                账号 <input type="text" placeholder="请输入用户名" name="username" id="un"><br>
+                <br/>
+                密码 <input type="password" placeholder="请输入密码" name="password" id="pd"><br>
+                <br/>
+                <input type="button" value="登录" id="btn">
+                <div id="nr">
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+    $("#btn").click(
+        function () {
+            var un = $("#un").val()
+            var pd = $("#pd").val()
+
+            $.post(
+                "/manage/user/login.do",
+                {username: un, password: pd},
+                function (dt) {
+                    if (dt.status !== 0) {
+                        $("#nr").empty()
+                        $("#nr").append("<p>" + dt.mag + "</p>")
+                    } else {
+                        window.open("home.html")
+                    }
+                },"json"
+            )
+        }
+    )
+</script>
+</html>
